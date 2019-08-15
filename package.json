@@ -1,0 +1,34 @@
+{
+  "name": "react-algolia",
+  "version": "1.0.0",
+  "description": "react algolia wrapper",
+  "main": "lib/index.js",
+  "license": "UNLICENSED",
+  "scripts": {
+    "clean": "rm -rf ./lib ./es ./node_modules",
+    "prebuild": "yarn run clean && yarn",
+    "build": "yarn build:commonjs && yarn build:es",
+    "build:commonjs": "BABEL_ENV=commonjs babel src --out-dir lib",
+    "build:es": "BABEL_ENV=es babel src --out-dir es",
+    "format": "prettier-eslint --write 'src/**/*.js'",
+    "prepublishOnly": "rm -rf es lib && yarn build"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.2",
+    "prettier-eslint-cli": "^5.0.0",
+    "react": "^16.8.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.1"
+  },
+  "dependencies": {
+    "algoliasearch": "^3.33.0",
+    "lodash": "^4.17.15"
+  }
+}
