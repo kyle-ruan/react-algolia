@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useAlgoliaIndex } from 'hooks/use-algolia-index';
+import { useAlgoliaIndex } from './use-algolia-index';
 
 const makeGetObject = ({
   index,
