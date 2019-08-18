@@ -1,17 +1,38 @@
 {
   "name": "react-algolia",
-  "version": "1.0.1",
-  "description": "react algolia wrapper",
-  "main": "lib/index.js",
-  "license": "UNLICENSED",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "algoliasearch": "^3.33.0",
+    "lodash": "^4.17.15",
+    "react-scripts": "3.1.1"
+  },
   "scripts": {
+    "start": "react-scripts start",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "clean": "rm -rf ./lib ./es ./node_modules",
     "prebuild": "yarn run clean && yarn",
     "build": "yarn build:commonjs && yarn build:es",
-    "build:commonjs": "BABEL_ENV=commonjs babel src --out-dir lib",
-    "build:es": "BABEL_ENV=es babel src --out-dir es",
+    "build:commonjs": "BABEL_ENV=commonjs babel src/lib --out-dir lib",
+    "build:es": "BABEL_ENV=es babel src/lib --out-dir es",
     "format": "prettier-eslint --write 'src/**/*.js'",
     "prepublishOnly": "rm -rf es lib && yarn build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
@@ -21,14 +42,12 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.2",
+    "bluebird": "^3.5.5",
     "prettier-eslint-cli": "^5.0.0",
-    "react": "^16.8.1"
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
   },
   "peerDependencies": {
     "react": "^16.8.1"
-  },
-  "dependencies": {
-    "algoliasearch": "^3.33.0",
-    "lodash": "^4.17.15"
   }
 }
