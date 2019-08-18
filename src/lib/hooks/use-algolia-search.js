@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useReducer } from 'react';
+import { useRef, useEffect, useReducer } from 'react';
 import { useStateHistory } from './use-state-history';
 import { useAlgoliaIndex } from './use-algolia-index';
 
@@ -40,13 +40,13 @@ const useAlgoliaSearch = ({
   indexName,
   query = '',
   filters = '',
-  page = 1,
+  page = 0,
   hitsPerPage = 10,
   delay = 800,
   key = 0
 }) => {
   const handlerRef = useRef();
-  const [{ loading, searchResults, error}, dispatch] = useReducer(reducer, INITIAL_STATE);
+  const [{ loading, searchResults, error }, dispatch] = useReducer(reducer, INITIAL_STATE);
   const { getPrevious: getPreviousQuery } = useStateHistory(query);
   const { getPrevious: getPreviousKey } = useStateHistory(key);
 
@@ -56,7 +56,7 @@ const useAlgoliaSearch = ({
     let cancelled;
     const search = async ({
       query = '',
-      page = 1,
+      page = 0,
       filters = '',
       hitsPerPage = 10
     }) => {
@@ -65,7 +65,7 @@ const useAlgoliaSearch = ({
         const searchResults = await index.search({
           query,
           filters,
-          page: page - 1,
+          page: page < 0 ? 0 : page,
           hitsPerPage
         });
 

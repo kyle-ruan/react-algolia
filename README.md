@@ -4,22 +4,24 @@
 ```javascript
 import { AlgoliaProvider, defineAlgoliaApp } from 'react-algolia';
 
-<AlgoliaProvider
-  applications={[
-    defineAlgoliaApp(
-      APP_APPLICATION_ID,
-      API_KEY,
-      INDEX_NAME
-    ),
-    defineAlgoliaApp(
-      ANOTHER_APP_APPLICATION_ID,
-      ANOTHER_API_KEY,
-      ANOTHER_INDEX_NAME
-    )
-  ]}
->
-  <APP />
-</AlgoliaProvider>
+const App = () => (
+  <AlgoliaProvider
+    applications={[
+      defineAlgoliaApp(
+        APP_APPLICATION_ID,
+        API_KEY,
+        INDEX_NAME
+      ),
+      defineAlgoliaApp(
+        ANOTHER_APP_APPLICATION_ID,
+        ANOTHER_API_KEY,
+        ANOTHER_INDEX_NAME
+      )
+    ]}
+  >
+    <Main />
+  </AlgoliaProvider>
+)
 ```
 
 ### Usage

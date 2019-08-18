@@ -40,7 +40,7 @@ const useAlgoliaLazySearch = ({
   indexName,
   query = '',
   filters = '',
-  page = 1,
+  page = 0,
   hitsPerPage = 10,
   delay = 800,
   key = 0
@@ -57,7 +57,7 @@ const useAlgoliaLazySearch = ({
     let cancelled;
     const search = async ({
       query = '',
-      page = 1,
+      page = 0,
       filters = '',
       hitsPerPage = 10
     }) => {
@@ -69,7 +69,7 @@ const useAlgoliaLazySearch = ({
         const searchResults = await index.search({
           query,
           filters,
-          page: page - 1,
+          page: page < 0 ? 0 : page,
           hitsPerPage
         });
 

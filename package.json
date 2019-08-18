@@ -2,6 +2,8 @@
   "name": "react-algolia",
   "version": "0.1.2",
   "license": "MIT",
+  "main": "lib/index.js",
+  "module": "es/index.js",
   "description": "React algolia library",
   "repository": "https://github.com/kyle-ruan/react-algolia.git",
   "author": "Kyle Ruan",
