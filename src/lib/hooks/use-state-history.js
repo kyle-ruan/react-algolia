@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { get } from 'lodash';
+import get from 'lodash/get';
 
 const useStateHistory = (value) => {
   const historyRef = useRef();

@@ -1,5 +1,5 @@
 
-import { get } from 'lodash';
+import get from 'lodash/get';
 import { useEffect, useReducer } from 'react';
 import { useAlgoliaIndex } from './use-algolia-index';
 

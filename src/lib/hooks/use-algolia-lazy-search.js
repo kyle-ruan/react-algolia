@@ -38,7 +38,6 @@ const reducer = (state, action) => {
 
 const useAlgoliaLazySearch = ({
   indexName,
-  replica,
   query = '',
   filters = '',
   page = 1,
@@ -50,29 +49,9 @@ const useAlgoliaLazySearch = ({
   const [{ loading, searchResults, error }, dispatch] = useReducer(reducer, INITIAL_STATE);
   const { getPrevious: getPreviousQuery } = useStateHistory(query);
   const { getPrevious: getPreviousKey } = useStateHistory(key);
-  const [fallback, setFallback] = useState(false);
   const [waiting, setWaiting] = useState(true);
 
-  const index = useAlgoliaIndex({
-    indexName,
-    replica: fallback ? undefined : replica
-  });
-
-  useEffect(() => {
-    if (!error) {
-      return;
-    }
-
-    if (!fallback) {
-      setFallback(true);
-    }
-  }, [error, fallback]);
-
-  useEffect(() => {
-    if (fallback) {
-      setFallback(false);
-    }
-  }, [replica, fallback]);
+  const index = useAlgoliaIndex({ indexName });
 
   useEffect(() => {
     let cancelled;
@@ -136,7 +115,7 @@ const useAlgoliaLazySearch = ({
         clearTimeout(handlerRef.current);
       }
     }
-  }, [query, filters, page, hitsPerPage, index, key, waiting]);
+  }, [query, filters, page, hitsPerPage, index, key, waiting, delay]);
 
   return [
     () => setWaiting(false),

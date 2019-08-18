@@ -1,19 +1,17 @@
-import { get } from 'lodash';
+import get from 'lodash/get';
 import { useState, useEffect, useContext } from 'react';
 import { AlgoliaContext } from '../AlgoliaContext';
 
-const useAlgoliaIndex = ({ indexName, replica }) => {
+const useAlgoliaIndex = ({ indexName }) => {
   const [algoliaIndex, setAlgoliaIndex] = useState(null);
   const algoliaContext = useContext(AlgoliaContext);
-  const index = get(algoliaContext, `${indexName}.replicas.${replica}`)
-    || get(algoliaContext, `${indexName}.default`)
-    || get(algoliaContext, indexName);;
+  const index = get(algoliaContext, indexName);
 
   useEffect(() => {
     if (index) {
       setAlgoliaIndex(index);
     }
-  }, [indexName, index, replica]);
+  }, [indexName, index]);
 
   return algoliaIndex;
 }

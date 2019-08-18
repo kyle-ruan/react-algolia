@@ -1,7 +1,10 @@
 {
   "name": "react-algolia",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "license": "MIT",
+  "repository": "https://github.com/kyle-ruan/react-algolia.git",
+  "author": "Kyle Ruan",
   "dependencies": {
     "algoliasearch": "^3.33.0",
     "lodash": "^4.17.15",
