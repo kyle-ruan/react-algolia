@@ -46,6 +46,9 @@ const useAlgoliaGetObjects = ({
 
   const index = useAlgoliaIndex({ indexName });
 
+  const stringifiedFields = JSON.stringify(fields);
+  const stringifiedObjectIds = JSON.stringify(objectIds);
+
   useEffect(() => {
     let cancelled;
     const getObjects = async ({ objectIds, fields }) => {
@@ -80,7 +83,7 @@ const useAlgoliaGetObjects = ({
     getObjects({ objectIds, fields });
 
     return () => cancelled = true;
-  }, [JSON.stringify(fields), index, JSON.stringify(objectIds)]);
+  }, [index, stringifiedFields, stringifiedObjectIds]);
 
   return { loading, error, objects };
 };

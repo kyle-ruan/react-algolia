@@ -111,7 +111,7 @@ const useAlgoliaSearch = ({
         clearTimeout(handlerRef.current);
       }
     }
-  }, [query, filters, page, hitsPerPage, index, key]);
+  }, [query, filters, page, hitsPerPage, index, key, delay]);
 
   return {
     loading,

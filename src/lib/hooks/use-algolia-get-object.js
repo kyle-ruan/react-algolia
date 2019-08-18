@@ -35,29 +35,6 @@ const reducer = (state, action) => {
   }
 };
 
-const makeGetObject = ({
-  index,
-  setLoading,
-  setObject,
-  setError
-}) => ({
-  objectId,
-  fields
-}) => {
-    if (!objectId) {
-      return Promise.resolve();
-    }
-    return index.getObject(objectId, fields)
-      .then(object => {
-        setLoading(false);
-        setObject(object);
-      })
-      .catch(err => {
-        setLoading(false);
-        setError(err);
-      });
-  }
-
 const useAlgoliaGetObject = ({
   indexName,
   objectId,
@@ -66,6 +43,8 @@ const useAlgoliaGetObject = ({
   const [{ object, loading, error }, dispatch] = useReducer(reducer, INITIAL_STATE);
 
   const index = useAlgoliaIndex({ indexName });
+
+  const stringifiedFields = JSON.stringify(fields);
 
   useEffect(() => {
     let cancelled;
@@ -102,7 +81,7 @@ const useAlgoliaGetObject = ({
     getObject({ objectId, fields });
 
     return () => cancelled = true;
-  }, [index, objectId, JSON.stringify(fields)]);
+  }, [index, objectId, stringifiedFields]);
 
   return { loading, error, object };
 };
