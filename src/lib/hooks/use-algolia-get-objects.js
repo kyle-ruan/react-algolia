@@ -4,7 +4,7 @@ import { useEffect, useReducer } from 'react';
 import { useAlgoliaIndex } from './use-algolia-index';
 
 const INITIAL_STATE = {
-  loading: false,
+  loading: true,
   objects: [],
   error: null
 };
@@ -20,17 +20,22 @@ const reducer = (state, action) => {
     case 'success':
       return {
         ...INITIAL_STATE,
-        objects: action.payload.objects
+        objects: action.payload.objects,
+        loading: false
       };
 
     case 'error':
       return {
         ...INITIAL_STATE,
-        error: action.payload.error
+        error: action.payload.error,
+        loading: false
       };
 
     case 'reset':
-      return INITIAL_STATE;
+      return {
+        ...INITIAL_STATE,
+        loading: false
+      };
 
     default:
       return state;
