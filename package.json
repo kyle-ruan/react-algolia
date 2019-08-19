@@ -1,6 +1,6 @@
 {
   "name": "react-algolia",
-  "version": "0.1.7",
+  "version": "1.0.0",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "es/index.js",

@@ -80,8 +80,12 @@ const useAlgoliaGetObjects = ({
       cancelled = false;
     };
 
-    if (!index || !get(objectIds, 'length')) {
-      dispatch({ type: 'reset' })
+    if (!index) {
+      return;
+    }
+
+    if (!get(objectIds, 'length')) {
+      dispatch({ type: 'reset' });
       return;
     }
 

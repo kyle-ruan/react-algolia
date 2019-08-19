@@ -78,7 +78,11 @@ const useAlgoliaGetObject = ({
 
       cancelled = false;
     }
-    if (!index || !objectId) {
+    if (!index) {
+      return;
+    }
+
+    if (!objectId) {
       dispatch({ type: 'reset' });
       return;
     }
