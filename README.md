@@ -82,7 +82,7 @@ const SearchExample = ({ query, page, hitsPerPage }) => {
 import { useAlgoliaLazySearch } from 'react-algolia';
 
 const LazySearchExample = ({ query, page, hitsPerPage }) => {
-  const [execute, { searchResults, loading, error }] = useAlgoliaGetObjects({
+  const [execute, { searchResults, loading, error }] = useAlgoliaLazySearch({
     indexName: 'index-name',
     page,
     hitsPerPage,
