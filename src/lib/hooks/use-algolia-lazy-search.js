@@ -95,7 +95,6 @@ const useAlgoliaLazySearch = ({
     };
 
     if (!index) {
-      dispatch({ type: 'reset' });
       return;
     }
 
