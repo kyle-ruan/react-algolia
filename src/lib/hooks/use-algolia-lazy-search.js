@@ -3,9 +3,9 @@ import { useStateHistory } from './use-state-history';
 import { useAlgoliaIndex } from './use-algolia-index';
 
 const INITIAL_STATE = {
-  searchResults: null,
+  searchResults: undefined,
   loading: false,
-  error: null
+  error: undefined
 };
 
 const reducer = (state, action) => {

@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import { AlgoliaContext } from '../AlgoliaContext';
 
 const useAlgoliaIndex = ({ indexName }) => {
-  const [algoliaIndex, setAlgoliaIndex] = useState(null);
+  const [algoliaIndex, setAlgoliaIndex] = useState();
   const algoliaContext = useContext(AlgoliaContext);
   const index = get(algoliaContext, indexName);
 

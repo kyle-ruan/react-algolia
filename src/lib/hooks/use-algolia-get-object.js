@@ -3,8 +3,8 @@ import { useAlgoliaIndex } from './use-algolia-index';
 
 const INITIAL_STATE = {
   lodaing: true,
-  object: null,
-  error: null
+  object: undefined,
+  error: undefined
 };
 
 const reducer = (state, action) => {

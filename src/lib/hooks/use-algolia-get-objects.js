@@ -6,7 +6,7 @@ import { useAlgoliaIndex } from './use-algolia-index';
 const INITIAL_STATE = {
   loading: true,
   objects: [],
-  error: null
+  error: undefined
 };
 
 const reducer = (state, action) => {
