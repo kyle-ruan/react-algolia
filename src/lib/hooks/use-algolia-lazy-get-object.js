@@ -40,12 +40,11 @@ const reducer = (state, action) => {
   }
 };
 
-const useAlgoliaLazyGetObject = ({
-  indexName,
-  objectId,
-  fields = ['*']
-}) => {
-  const [{ object, loading, error }, dispatch] = useReducer(reducer, INITIAL_STATE);
+const useAlgoliaLazyGetObject = ({ indexName, objectId, fields = ['*'] }) => {
+  const [{ object, loading, error }, dispatch] = useReducer(
+    reducer,
+    INITIAL_STATE
+  );
   const [waiting, setWaiting] = useState(true);
 
   const index = useAlgoliaIndex({ indexName });
@@ -82,7 +81,7 @@ const useAlgoliaLazyGetObject = ({
       }
 
       cancelled = false;
-    }
+    };
     if (!index) {
       return;
     }
@@ -94,13 +93,10 @@ const useAlgoliaLazyGetObject = ({
 
     getObject({ objectId, fields });
 
-    return () => cancelled = true;
-  }, [index, objectId, stringifiedFields, waiting]);
+    return () => (cancelled = true);
+  }, [fields, index, objectId, stringifiedFields, waiting]);
 
-  return [
-    () => setWaiting(false),
-    { loading, error, object }
-  ]
+  return [() => setWaiting(false), { loading, error, object }];
 };
 
 export { useAlgoliaLazyGetObject };

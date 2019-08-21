@@ -9,8 +9,8 @@ const useAlgoliaClearCache = ({ indexName }) => {
       if (index) {
         index.clearCache();
       }
-    }
-  }, [index])
+    };
+  }, [index]);
 };
 
 export { useAlgoliaClearCache };

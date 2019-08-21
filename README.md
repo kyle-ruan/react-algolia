@@ -42,6 +42,26 @@ const GetObjectExample = ({ objectId }) => {
 };
 ```
 
+#### lazy get object
+```javascript
+import { useAlgoliaLazyGetObject } from 'react-algolia';
+
+const LazyGetObjectExample = ({ objectId }) => {
+  const [execute, { object, loading, error }] = useAlgoliaLazyGetObject({
+    indexName: 'index-name',
+    objectId,
+    fields: ['objectID', 'name']
+  });
+
+  return (
+    <div>
+      Lazy Get Object Example
+      <button onClick={() => execute()}>Get Object</button>
+    </div>
+  );
+};
+```
+
 #### get objects
 ```javascript
 import { useAlgoliaGetObjects } from 'react-algolia';
@@ -55,6 +75,26 @@ const GetObjectsExample = ({ objectIds }) => {
 
   return (
     <div>Get Objects Example</div>
+  );
+};
+```
+
+#### lazy get objects
+```javascript
+import { useAlgoliaLazyGetObjects } from 'react-algolia';
+
+const LazyGetObjectsExample = ({ objectIds }) => {
+  const [execute, { objects, loading, error }] = useAlgoliaLazyGetObjects({
+    indexName: 'index-name',
+    objectIds,
+    fields: ['objectID', 'name']
+  });
+
+  return (
+    <div>
+      Lazy Get Objects Example
+      <button onClick={() => execute()}>Lazy Get Objects</button>
+    </div>
   );
 };
 ```

@@ -34,7 +34,7 @@ const reducer = (state, action) => {
     default:
       return state;
   }
-}
+};
 
 const useAlgoliaLazySearch = ({
   indexName,
@@ -46,7 +46,10 @@ const useAlgoliaLazySearch = ({
   key = 0
 }) => {
   const handlerRef = useRef();
-  const [{ loading, searchResults, error }, dispatch] = useReducer(reducer, INITIAL_STATE);
+  const [{ loading, searchResults, error }, dispatch] = useReducer(
+    reducer,
+    INITIAL_STATE
+  );
   const { getPrevious: getPreviousQuery } = useStateHistory(query);
   const { getPrevious: getPreviousKey } = useStateHistory(key);
   const [waiting, setWaiting] = useState(true);
@@ -103,7 +106,10 @@ const useAlgoliaLazySearch = ({
     }
 
     if (getPreviousQuery() !== query && !!query) {
-      handlerRef.current = setTimeout(() => search({ query, filters, page, hitsPerPage }), delay);
+      handlerRef.current = setTimeout(
+        () => search({ query, filters, page, hitsPerPage }),
+        delay
+      );
     } else {
       search({ query, filters, page, hitsPerPage });
     }
@@ -113,8 +119,8 @@ const useAlgoliaLazySearch = ({
       if (handlerRef.current) {
         clearTimeout(handlerRef.current);
       }
-    }
-  }, [query, filters, page, hitsPerPage, index, key, waiting, delay]);
+    };
+  }, [query, filters, page, hitsPerPage, index, key, waiting, delay, getPreviousKey, getPreviousQuery]);
 
   return [
     () => setWaiting(false),

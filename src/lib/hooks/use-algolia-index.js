@@ -14,6 +14,6 @@ const useAlgoliaIndex = ({ indexName }) => {
   }, [indexName, index]);
 
   return algoliaIndex;
-}
+};
 
 export { useAlgoliaIndex };

@@ -9,7 +9,9 @@ const useAlgoliaBrowseAll = ({
   const index = useAlgoliaIndex({ indexName });
 
   return {
-    browse: index ? () => index.browseAll(query, { hitsPerPage, facetFilters: filters }) : () => Promise.resolve([])
+    browse: index
+      ? () => index.browseAll(query, { hitsPerPage, facetFilters: filters })
+      : () => Promise.resolve([])
   };
 };
 

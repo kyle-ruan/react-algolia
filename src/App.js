@@ -22,8 +22,7 @@ const App = () => {
     >
       <h1>React Algolia</h1>
     </AlgoliaProvider>
-
   );
-}
+};
 
 export default App;

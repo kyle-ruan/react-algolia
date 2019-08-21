@@ -40,12 +40,11 @@ const reducer = (state, action) => {
   }
 };
 
-const useAlgoliaGetObject = ({
-  indexName,
-  objectId,
-  fields = ['*']
-}) => {
-  const [{ object, loading, error }, dispatch] = useReducer(reducer, INITIAL_STATE);
+const useAlgoliaGetObject = ({ indexName, objectId, fields = ['*'] }) => {
+  const [{ object, loading, error }, dispatch] = useReducer(
+    reducer,
+    INITIAL_STATE
+  );
 
   const index = useAlgoliaIndex({ indexName });
 
@@ -77,7 +76,7 @@ const useAlgoliaGetObject = ({
       }
 
       cancelled = false;
-    }
+    };
     if (!index) {
       return;
     }
@@ -89,8 +88,8 @@ const useAlgoliaGetObject = ({
 
     getObject({ objectId, fields });
 
-    return () => cancelled = true;
-  }, [index, objectId, stringifiedFields]);
+    return () => (cancelled = true);
+  }, [fields, index, objectId, stringifiedFields]);
 
   return { loading, error, object };
 };

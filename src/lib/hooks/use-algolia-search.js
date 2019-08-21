@@ -39,7 +39,7 @@ const reducer = (state, action) => {
     default:
       return state;
   }
-}
+};
 
 const useAlgoliaSearch = ({
   indexName,
@@ -51,7 +51,10 @@ const useAlgoliaSearch = ({
   key = 0
 }) => {
   const handlerRef = useRef();
-  const [{ loading, searchResults, error }, dispatch] = useReducer(reducer, INITIAL_STATE);
+  const [{ loading, searchResults, error }, dispatch] = useReducer(
+    reducer,
+    INITIAL_STATE
+  );
   const { getPrevious: getPreviousQuery } = useStateHistory(query);
   const { getPrevious: getPreviousKey } = useStateHistory(key);
 
@@ -104,7 +107,10 @@ const useAlgoliaSearch = ({
     }
 
     if (getPreviousQuery() !== query && !!query) {
-      handlerRef.current = setTimeout(() => search({ query, filters, page, hitsPerPage }), delay);
+      handlerRef.current = setTimeout(
+        () => search({ query, filters, page, hitsPerPage }),
+        delay
+      );
     } else {
       search({ query, filters, page, hitsPerPage });
     }
@@ -114,8 +120,8 @@ const useAlgoliaSearch = ({
       if (handlerRef.current) {
         clearTimeout(handlerRef.current);
       }
-    }
-  }, [query, filters, page, hitsPerPage, index, key, delay]);
+    };
+  }, [query, filters, page, hitsPerPage, index, key, delay, getPreviousKey, getPreviousQuery]);
 
   return {
     loading,
