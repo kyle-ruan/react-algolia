@@ -3,7 +3,7 @@ import { useState, useEffect, useReducer } from 'react';
 import { useAlgoliaIndex } from './use-algolia-index';
 
 const INITIAL_STATE = {
-  loading: true,
+  loading: false,
   objects: [],
   error: undefined
 };

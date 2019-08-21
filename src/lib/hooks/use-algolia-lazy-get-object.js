@@ -2,7 +2,7 @@ import { useState, useEffect, useReducer } from 'react';
 import { useAlgoliaIndex } from './use-algolia-index';
 
 const INITIAL_STATE = {
-  lodaing: true,
+  lodaing: false,
   object: undefined,
   error: undefined
 };
