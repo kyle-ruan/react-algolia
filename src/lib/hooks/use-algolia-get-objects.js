@@ -1,4 +1,3 @@
-
 import get from 'lodash/get';
 import { useEffect, useReducer } from 'react';
 import { useAlgoliaIndex } from './use-algolia-index';
@@ -40,14 +39,13 @@ const reducer = (state, action) => {
     default:
       return state;
   }
-}
+};
 
-const useAlgoliaGetObjects = ({
-  indexName,
-  objectIds,
-  fields = ['*']
-}) => {
-  const [{ objects, loading, error }, dispatch] = useReducer(reducer, INITIAL_STATE);
+const useAlgoliaGetObjects = ({ indexName, objectIds, fields = ['*'] }) => {
+  const [{ objects, loading, error }, dispatch] = useReducer(
+    reducer,
+    INITIAL_STATE
+  );
 
   const index = useAlgoliaIndex({ indexName });
 
@@ -91,8 +89,8 @@ const useAlgoliaGetObjects = ({
 
     getObjects({ objectIds, fields });
 
-    return () => cancelled = true;
-  }, [index, stringifiedFields, stringifiedObjectIds]);
+    return () => (cancelled = true);
+  }, [fields, index, objectIds, stringifiedFields, stringifiedObjectIds]);
 
   return { loading, error, objects };
 };

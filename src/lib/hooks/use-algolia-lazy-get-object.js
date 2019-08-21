@@ -1,8 +1,8 @@
-import { useEffect, useReducer } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import { useAlgoliaIndex } from './use-algolia-index';
 
 const INITIAL_STATE = {
-  lodaing: true,
+  lodaing: false,
   object: undefined,
   error: undefined
 };
@@ -40,11 +40,12 @@ const reducer = (state, action) => {
   }
 };
 
-const useAlgoliaGetObject = ({ indexName, objectId, fields = ['*'] }) => {
+const useAlgoliaLazyGetObject = ({ indexName, objectId, fields = ['*'] }) => {
   const [{ object, loading, error }, dispatch] = useReducer(
     reducer,
     INITIAL_STATE
   );
+  const [waiting, setWaiting] = useState(true);
 
   const index = useAlgoliaIndex({ indexName });
 
@@ -54,6 +55,10 @@ const useAlgoliaGetObject = ({ indexName, objectId, fields = ['*'] }) => {
     let cancelled;
 
     const getObject = async ({ objectId, fields }) => {
+      if (waiting) {
+        return;
+      }
+
       dispatch({ type: 'fetching' });
 
       try {
@@ -89,9 +94,9 @@ const useAlgoliaGetObject = ({ indexName, objectId, fields = ['*'] }) => {
     getObject({ objectId, fields });
 
     return () => (cancelled = true);
-  }, [fields, index, objectId, stringifiedFields]);
+  }, [fields, index, objectId, stringifiedFields, waiting]);
 
-  return { loading, error, object };
+  return [() => setWaiting(false), { loading, error, object }];
 };
 
-export { useAlgoliaGetObject };
+export { useAlgoliaLazyGetObject };

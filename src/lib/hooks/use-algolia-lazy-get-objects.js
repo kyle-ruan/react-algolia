@@ -1,9 +1,10 @@
-import { useEffect, useReducer } from 'react';
+import get from 'lodash/get';
+import { useState, useEffect, useReducer } from 'react';
 import { useAlgoliaIndex } from './use-algolia-index';
 
 const INITIAL_STATE = {
-  lodaing: true,
-  object: undefined,
+  loading: false,
+  objects: [],
   error: undefined
 };
 
@@ -18,7 +19,7 @@ const reducer = (state, action) => {
     case 'success':
       return {
         ...INITIAL_STATE,
-        object: action.payload.object,
+        objects: action.payload.objects,
         loading: false
       };
 
@@ -40,30 +41,35 @@ const reducer = (state, action) => {
   }
 };
 
-const useAlgoliaGetObject = ({ indexName, objectId, fields = ['*'] }) => {
-  const [{ object, loading, error }, dispatch] = useReducer(
+const useAlgoliaLazyGetObjects = ({ indexName, objectIds, fields = ['*'] }) => {
+  const [{ objects, loading, error }, dispatch] = useReducer(
     reducer,
     INITIAL_STATE
   );
+  const [waiting, setWaiting] = useState(true);
 
   const index = useAlgoliaIndex({ indexName });
 
   const stringifiedFields = JSON.stringify(fields);
+  const stringifiedObjectIds = JSON.stringify(objectIds);
 
   useEffect(() => {
     let cancelled;
+    const getObjects = async ({ objectIds, fields }) => {
+      if (waiting) {
+        return;
+      }
 
-    const getObject = async ({ objectId, fields }) => {
       dispatch({ type: 'fetching' });
-
       try {
-        const object = await index.getObject(objectId, fields);
+        const { results } = await index.getObjects(objectIds, fields);
+
         if (cancelled) {
           return;
         }
         dispatch({
           type: 'success',
-          payload: { object }
+          payload: { objects: results.filter(Boolean) }
         });
       } catch (err) {
         if (cancelled) {
@@ -74,24 +80,24 @@ const useAlgoliaGetObject = ({ indexName, objectId, fields = ['*'] }) => {
           payload: { error: err }
         });
       }
-
       cancelled = false;
     };
+
     if (!index) {
       return;
     }
 
-    if (!objectId) {
+    if (!get(objectIds, 'length')) {
       dispatch({ type: 'reset' });
       return;
     }
 
-    getObject({ objectId, fields });
+    getObjects({ objectIds, fields });
 
     return () => (cancelled = true);
-  }, [fields, index, objectId, stringifiedFields]);
+  }, [fields, index, objectIds, stringifiedFields, stringifiedObjectIds, waiting]);
 
-  return { loading, error, object };
+  return [() => setWaiting(false), { loading, error, objects }];
 };
 
-export { useAlgoliaGetObject };
+export { useAlgoliaLazyGetObjects };
