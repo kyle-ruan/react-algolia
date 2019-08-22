@@ -64,9 +64,6 @@ const useAlgoliaLazySearch = ({
       filters = '',
       hitsPerPage = 10
     }) => {
-      if (waiting) {
-        return;
-      }
       dispatch({ type: 'fetching' });
       try {
         const searchResults = await index.search({
@@ -97,7 +94,7 @@ const useAlgoliaLazySearch = ({
       cancelled = false;
     };
 
-    if (!index) {
+    if (!index || waiting) {
       return;
     }
 

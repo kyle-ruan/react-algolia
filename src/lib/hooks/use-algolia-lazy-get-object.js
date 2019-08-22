@@ -52,10 +52,6 @@ const useAlgoliaLazyGetObject = ({ indexName, objectId, fields = ['*'] }) => {
   const stringifiedFields = JSON.stringify(fields);
 
   useEffect(() => {
-    if (waiting) {
-      return;
-    }
-
     let cancelled;
 
     const getObject = async ({ objectId, fields }) => {
@@ -82,7 +78,7 @@ const useAlgoliaLazyGetObject = ({ indexName, objectId, fields = ['*'] }) => {
 
       cancelled = false;
     };
-    if (!index) {
+    if (!index || waiting) {
       return;
     }
 
