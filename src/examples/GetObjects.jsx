@@ -1,26 +1,26 @@
 import React, { useEffect } from 'react';
-import { useAlgoliaLazyGetObject } from '../lib/hooks';
+import { useAlgoliaLazyGetObjects } from '../lib/hooks';
 
 const {
   REACT_APP_ALGOLIA_INDEX_NAME
 } = process.env;
 
 const GetObjects = ({ objectIds }) => {
-  const [execute, { object, loading }] = useAlgoliaLazyGetObject({
+  const [execute, { objects, loading }] = useAlgoliaLazyGetObjects({
     indexName: REACT_APP_ALGOLIA_INDEX_NAME,
-    objectId: objectIds[0]
+    objectIds
   });
 
   useEffect(() => {
     if (objectIds.length > 0) {
       execute();
     }
-  }, [objectIds[0]]);
+  }, [objectIds]);
 
   if (loading) {
     return <div>Loading</div>
   }
-  return <div key={object && object.title}>Title: {object && object.title}</div>
+  return objects.map(({ title }) => <div key={title}>Title: {title}</div>)
 };
 
 export { GetObjects };

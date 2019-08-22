@@ -64,9 +64,6 @@ const useAlgoliaLazySearch = ({
       filters = '',
       hitsPerPage = 10
     }) => {
-      if (waiting) {
-        return;
-      }
       dispatch({ type: 'fetching' });
       try {
         const searchResults = await index.search({
@@ -97,7 +94,7 @@ const useAlgoliaLazySearch = ({
       cancelled = false;
     };
 
-    if (!index) {
+    if (!index || waiting) {
       return;
     }
 
@@ -120,7 +117,7 @@ const useAlgoliaLazySearch = ({
         clearTimeout(handlerRef.current);
       }
     };
-  }, [query, filters, page, hitsPerPage, index, key, waiting, delay, getPreviousKey, getPreviousQuery]);
+  }, [query, filters, page, hitsPerPage, index, key, waiting, delay]);
 
   return [
     () => setWaiting(false),
