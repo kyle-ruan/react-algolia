@@ -82,11 +82,6 @@ const useAlgoliaLazyGetObject = ({ indexName, objectId, fields = ['*'] }) => {
       return;
     }
 
-    if (!objectId) {
-      dispatch({ type: 'reset' });
-      return;
-    }
-
     getObject({ objectId, fields });
 
     return () => (cancelled = true);

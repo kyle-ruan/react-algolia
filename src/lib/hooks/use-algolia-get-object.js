@@ -45,17 +45,17 @@ const useAlgoliaGetObject = ({ indexName, objectId, fields = ['*'] }) => {
     reducer,
     INITIAL_STATE
   );
-
+  console.log(object, loading, error )
   const index = useAlgoliaIndex({ indexName });
 
   const stringifiedFields = JSON.stringify(fields);
 
   useEffect(() => {
+    console.log('USE EFFECT')
     let cancelled;
 
     const getObject = async ({ objectId, fields }) => {
       dispatch({ type: 'fetching' });
-
       try {
         const object = await index.getObject(objectId, fields);
         if (cancelled) {
@@ -80,17 +80,15 @@ const useAlgoliaGetObject = ({ indexName, objectId, fields = ['*'] }) => {
     if (!index) {
       return;
     }
-
     if (!objectId) {
-      dispatch({ type: 'reset' });
-      return;
+      dispatch({ type: 'reset' })
     }
-
     getObject({ objectId, fields });
 
     return () => (cancelled = true);
   }, [index, objectId, stringifiedFields]);
 
+  console.log('response', loading, error, object)
   return { loading, error, object };
 };
 

@@ -1,6 +1,6 @@
 import get from 'lodash/get';
 import { useState, useEffect, useContext } from 'react';
-import { AlgoliaContext } from '../AlgoliaContext';
+import { AlgoliaContext } from '../algolia-context';
 
 const useAlgoliaIndex = ({ indexName }) => {
   const [algoliaIndex, setAlgoliaIndex] = useState();
