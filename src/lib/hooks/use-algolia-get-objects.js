@@ -1,3 +1,4 @@
+
 import get from 'lodash/get';
 import { useEffect, useReducer } from 'react';
 import { useAlgoliaIndex } from './use-algolia-index';
@@ -39,15 +40,15 @@ const reducer = (state, action) => {
     default:
       return state;
   }
-};
+}
 
-const useAlgoliaGetObjects = ({ indexName, objectIds, fields = ['*'] }) => {
-  const [{ objects, loading, error }, dispatch] = useReducer(
-    reducer,
-    INITIAL_STATE
-  );
-
-  const index = useAlgoliaIndex({ indexName });
+const useAlgoliaGetObjects = ({
+  indexName,
+  objectIds,
+  fields = ['*']
+}) => {
+  const [{ objects, loading, error }, dispatch] = useReducer(reducer, INITIAL_STATE);
+  const algoliaIndex = useAlgoliaIndex({ indexName });
 
   const stringifiedFields = JSON.stringify(fields);
   const stringifiedObjectIds = JSON.stringify(objectIds);
@@ -57,11 +58,12 @@ const useAlgoliaGetObjects = ({ indexName, objectIds, fields = ['*'] }) => {
     const getObjects = async ({ objectIds, fields }) => {
       dispatch({ type: 'fetching' });
       try {
-        const { results } = await index.getObjects(objectIds, fields);
+        const { results } = await algoliaIndex.getObjects(objectIds, fields);
 
         if (cancelled) {
           return;
         }
+
         dispatch({
           type: 'success',
           payload: { objects: results.filter(Boolean) }
@@ -78,7 +80,7 @@ const useAlgoliaGetObjects = ({ indexName, objectIds, fields = ['*'] }) => {
       cancelled = false;
     };
 
-    if (!index) {
+    if (!algoliaIndex) {
       return;
     }
 
@@ -89,8 +91,9 @@ const useAlgoliaGetObjects = ({ indexName, objectIds, fields = ['*'] }) => {
 
     getObjects({ objectIds, fields });
 
-    return () => (cancelled = true);
-  }, [fields, index, objectIds, stringifiedFields, stringifiedObjectIds]);
+
+    return () => cancelled = true;
+  }, [algoliaIndex, stringifiedFields, stringifiedObjectIds]);
 
   return { loading, error, objects };
 };

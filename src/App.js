@@ -2,6 +2,7 @@ import React from 'react';
 
 import './App.css';
 import { AlgoliaProvider, defineAlgoliaApp } from './lib';
+import { Example } from './examples';
 
 const {
   REACT_APP_ALGOLIA_APP_ID,
@@ -21,6 +22,7 @@ const App = () => {
       ]}
     >
       <h1>React Algolia</h1>
+      <Example />
     </AlgoliaProvider>
   );
 };
