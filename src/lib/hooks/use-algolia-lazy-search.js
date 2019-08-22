@@ -117,7 +117,7 @@ const useAlgoliaLazySearch = ({
         clearTimeout(handlerRef.current);
       }
     };
-  }, [query, filters, page, hitsPerPage, index, key, waiting, delay, getPreviousKey, getPreviousQuery]);
+  }, [query, filters, page, hitsPerPage, index, key, waiting, delay]);
 
   return [
     () => setWaiting(false),
