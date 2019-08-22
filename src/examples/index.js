@@ -1,17 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { GetObjects } from './GetObjects';
+import React, { useState } from 'react';
+import { GetObject } from './get-object';
+import { GetObjects } from './get-objects';
 
-const OBJECT_IDS = ['aws-devops-pro', 'aws-csysops'];
+
+const Examples = {
+  'get-object': <GetObject />,
+  'get-objects': <GetObjects />
+};
 
 const Example = () => {
-  const [objectIds, setObjectIds] = useState([]);
+  const [example, setExample] = useState('get-object');
 
-  useEffect(() => {
-    setTimeout(() => {
-      setObjectIds(OBJECT_IDS)
-    }, 300)
-  }, []);
-  return <GetObjects objectIds={objectIds} />
+  return (
+    <div>
+      <div style={{ marginBottom: 15 }}>
+        <select onChange={(e) => setExample(e.target.value)}>
+          <option value="get-object">Get Object</option>
+          <option value="get-objects">Get Objects</option>
+        </select>
+      </div>
+
+      <div>
+        {Examples[example]}
+      </div>
+    </div>
+  )
 }
 
 export { Example };

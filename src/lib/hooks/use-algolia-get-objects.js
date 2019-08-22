@@ -1,5 +1,3 @@
-
-import get from 'lodash/get';
 import { useEffect, useReducer } from 'react';
 import { useAlgoliaIndex } from './use-algolia-index';
 
@@ -84,13 +82,7 @@ const useAlgoliaGetObjects = ({
       return;
     }
 
-    if (!get(objectIds, 'length')) {
-      dispatch({ type: 'reset' });
-      return;
-    }
-
     getObjects({ objectIds, fields });
-
 
     return () => cancelled = true;
   }, [algoliaIndex, stringifiedFields, stringifiedObjectIds]);

@@ -1,4 +1,3 @@
-import get from 'lodash/get';
 import { useState, useEffect, useReducer } from 'react';
 import { useAlgoliaIndex } from './use-algolia-index';
 
@@ -56,7 +55,7 @@ const useAlgoliaLazyGetObjects = ({ indexName, objectIds, fields = ['*'] }) => {
   useEffect(() => {
     let cancelled;
 
-    const getObjects = async ({ objectIds, fields }) => {
+    const getObjects = async ({ objectIds = [], fields }) => {
       dispatch({ type: 'fetching' });
       try {
         const { results } = await index.getObjects(objectIds, fields);
@@ -81,11 +80,6 @@ const useAlgoliaLazyGetObjects = ({ indexName, objectIds, fields = ['*'] }) => {
     };
 
     if (!index || waiting) {
-      return;
-    }
-
-    if (!get(objectIds, 'length')) {
-      dispatch({ type: 'reset' });
       return;
     }
 

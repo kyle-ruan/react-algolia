@@ -2,7 +2,7 @@ import { useEffect, useReducer } from 'react';
 import { useAlgoliaIndex } from './use-algolia-index';
 
 const INITIAL_STATE = {
-  lodaing: true,
+  loading: true,
   object: undefined,
   error: undefined
 };
@@ -55,7 +55,6 @@ const useAlgoliaGetObject = ({ indexName, objectId, fields = ['*'] }) => {
 
     const getObject = async ({ objectId, fields }) => {
       dispatch({ type: 'fetching' });
-
       try {
         const object = await index.getObject(objectId, fields);
         if (cancelled) {
@@ -80,12 +79,9 @@ const useAlgoliaGetObject = ({ indexName, objectId, fields = ['*'] }) => {
     if (!index) {
       return;
     }
-
     if (!objectId) {
-      dispatch({ type: 'reset' });
-      return;
+      dispatch({ type: 'reset' })
     }
-
     getObject({ objectId, fields });
 
     return () => (cancelled = true);

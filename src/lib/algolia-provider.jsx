@@ -1,5 +1,5 @@
 import React from 'react'
-import { AlgoliaContext } from './AlgoliaContext';
+import { AlgoliaContext } from './algolia-context';
 import { useInitAlgoliaIndex } from './hooks/use-init-algolia-index';
 
 const AlgoliaProvider = ({
