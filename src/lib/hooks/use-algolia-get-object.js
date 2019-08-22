@@ -2,7 +2,7 @@ import { useEffect, useReducer } from 'react';
 import { useAlgoliaIndex } from './use-algolia-index';
 
 const INITIAL_STATE = {
-  lodaing: true,
+  loading: true,
   object: undefined,
   error: undefined
 };
@@ -45,13 +45,12 @@ const useAlgoliaGetObject = ({ indexName, objectId, fields = ['*'] }) => {
     reducer,
     INITIAL_STATE
   );
-  console.log(object, loading, error )
+
   const index = useAlgoliaIndex({ indexName });
 
   const stringifiedFields = JSON.stringify(fields);
 
   useEffect(() => {
-    console.log('USE EFFECT')
     let cancelled;
 
     const getObject = async ({ objectId, fields }) => {
@@ -88,7 +87,6 @@ const useAlgoliaGetObject = ({ indexName, objectId, fields = ['*'] }) => {
     return () => (cancelled = true);
   }, [index, objectId, stringifiedFields]);
 
-  console.log('response', loading, error, object)
   return { loading, error, object };
 };
 

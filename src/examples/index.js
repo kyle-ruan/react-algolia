@@ -13,12 +13,16 @@ const Example = () => {
 
   return (
     <div>
-      <select onChange={(value) => setExample(value)}>
-        <option value="get-object">Get Object</option>
-        <option value="get-objects">Get Objects</option>
-      </select>
+      <div style={{ marginBottom: 15 }}>
+        <select onChange={(e) => setExample(e.target.value)}>
+          <option value="get-object">Get Object</option>
+          <option value="get-objects">Get Objects</option>
+        </select>
+      </div>
 
-      <GetObject />
+      <div>
+        {Examples[example]}
+      </div>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 {
   "name": "react-algolia",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -9,8 +9,7 @@
   "author": "Kyle Ruan",
   "dependencies": {
     "algoliasearch": "^3.33.0",
-    "lodash": "^4.17.15",
-    "react-scripts": "3.1.1"
+    "lodash": "^4.17.15"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -48,7 +47,9 @@
     "babel-eslint": "^10.0.2",
     "bluebird": "^3.5.5",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "react-json-view": "^1.19.1",
+    "react-scripts": "^3.1.1"
   },
   "peerDependencies": {
     "react": "^16.8.1"

@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactJson from 'react-json-view'
 import { useAlgoliaGetObject } from '../lib/hooks';
 
 
@@ -9,16 +10,11 @@ const {
 const OBJECT_ID = 'aws-devops-pro';
 
 const GetObject = () => {
-  const { object, loading }  = useAlgoliaGetObject({
+  const response  = useAlgoliaGetObject({
     indexName: REACT_APP_ALGOLIA_INDEX_NAME,
     objectId: OBJECT_ID
   });
-
-  if (loading) {
-    return <div>Loading</div>
-  }
-
-  return <div>{object.title}</div>
+  return <ReactJson src={response} theme="chalk" name={false} />
 };
 
 export { GetObject };
