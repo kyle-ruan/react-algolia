@@ -25,14 +25,36 @@ const App = () => (
 ```
 
 ### Usage
+### get index
+```javascript
+import { useAlgoliaIndex } from 'react-algolia';
+
+const GetIndexExample = () => {
+  const index = useAlgoliaIndex({
+    indexName: 'index-name'
+  });
+
+  return (
+    <div>
+      Get Index Example
+      <button onClick={() => {
+        if (index) {
+          console.log('got index instance', index)
+        }
+      }}>Get Index</button>
+    </div>
+  )
+}
+```
+
 #### get object
 ```javascript
 import { useAlgoliaGetObject } from 'react-algolia';
 
-const GetObjectExample = ({ objectId }) => {
+const GetObjectExample = () => {
   const { object, loading, error } = useAlgoliaGetObject({
     indexName: 'index-name',
-    objectId,
+    objectId: 'algolia-object-id',
     fields: ['objectID', 'name']
   });
 
@@ -46,10 +68,10 @@ const GetObjectExample = ({ objectId }) => {
 ```javascript
 import { useAlgoliaLazyGetObject } from 'react-algolia';
 
-const LazyGetObjectExample = ({ objectId }) => {
+const LazyGetObjectExample = () => {
   const [execute, { object, loading, error }] = useAlgoliaLazyGetObject({
     indexName: 'index-name',
-    objectId,
+    objectId: 'algolia-object-id',
     fields: ['objectID', 'name']
   });
 
@@ -66,10 +88,10 @@ const LazyGetObjectExample = ({ objectId }) => {
 ```javascript
 import { useAlgoliaGetObjects } from 'react-algolia';
 
-const GetObjectsExample = ({ objectIds }) => {
+const GetObjectsExample = () => {
   const { objects, loading, error } = useAlgoliaGetObjects({
     indexName: 'index-name',
-    objectIds,
+    objectIds: ['algolia-object-ids'],
     fields: ['objectID', 'name']
   });
 
@@ -83,10 +105,10 @@ const GetObjectsExample = ({ objectIds }) => {
 ```javascript
 import { useAlgoliaLazyGetObjects } from 'react-algolia';
 
-const LazyGetObjectsExample = ({ objectIds }) => {
+const LazyGetObjectsExample = () => {
   const [execute, { objects, loading, error }] = useAlgoliaLazyGetObjects({
     indexName: 'index-name',
-    objectIds,
+    objectIds: ['algolia-object-ids'],
     fields: ['objectID', 'name']
   });
 
@@ -103,12 +125,19 @@ const LazyGetObjectsExample = ({ objectIds }) => {
 ```javascript
 import { useAlgoliaSearch } from 'react-algolia';
 
-const SearchExample = ({ query, page, hitsPerPage }) => {
-  const { searchResults, loading, error } = useAlgoliaGetObjects({
+const SearchExample = () => {
+  const {
+    searchResults,
+    loading,
+    error
+  } = useAlgoliaGetObjects({
     indexName: 'index-name',
-    page,
-    hitsPerPage,
-    filters: 'deleted:false'
+    query: 'keyword', // query string to search
+    page: 0, // page number starts from  0
+    hitsPerPage: 10, // page size: default to be 10
+    filters: 'deleted:false' // filters,
+    delay: 300 // debounce ms between query value changes,
+    key: 0 // query key, pass a new value will invalidate cache of this index and initiate a new search
   });
 
   return (
@@ -121,12 +150,15 @@ const SearchExample = ({ query, page, hitsPerPage }) => {
 ```javascript
 import { useAlgoliaLazySearch } from 'react-algolia';
 
-const LazySearchExample = ({ query, page, hitsPerPage }) => {
+const LazySearchExample = () => {
   const [execute, { searchResults, loading, error }] = useAlgoliaLazySearch({
     indexName: 'index-name',
-    page,
-    hitsPerPage,
-    filters: 'deleted:false'
+    query: 'keyword', // query string to search
+    page: 0, // page number starts from  0
+    hitsPerPage: 10, // page size: default to be 10
+    filters: 'deleted:false' // filters,
+    delay: 300 // debounce ms between query value changes,
+    key: 0 // query key, pass a new value will invalidate cache of this index and initiate a new search
   });
 
   return (
@@ -144,6 +176,7 @@ const LazySearchExample = ({ query, page, hitsPerPage }) => {
 import { useAlgoliaBrowseAll } from 'react-algolia';
 
 const BrowseExample = () => {
+  // browse the whole index (not limited to 1000 objects per request)
   const { browse } = useAlgoliaBrowseAll({
     indexName: 'index-name',
     filters: 'deleted:false'
