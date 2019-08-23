@@ -52,7 +52,7 @@ const GetIndexExample = () => {
 import { useAlgoliaGetObject } from 'react-algolia';
 
 const GetObjectExample = () => {
-  const { object, loading, error } = useAlgoliaGetObject({
+  const { object, loading, error, index } = useAlgoliaGetObject({
     indexName: 'index-name',
     objectId: 'algolia-object-id',
     fields: ['objectID', 'name']
@@ -69,7 +69,7 @@ const GetObjectExample = () => {
 import { useAlgoliaLazyGetObject } from 'react-algolia';
 
 const LazyGetObjectExample = () => {
-  const [execute, { object, loading, error }] = useAlgoliaLazyGetObject({
+  const [execute, { object, loading, error, index }] = useAlgoliaLazyGetObject({
     indexName: 'index-name',
     objectId: 'algolia-object-id',
     fields: ['objectID', 'name']
@@ -89,7 +89,7 @@ const LazyGetObjectExample = () => {
 import { useAlgoliaGetObjects } from 'react-algolia';
 
 const GetObjectsExample = () => {
-  const { objects, loading, error } = useAlgoliaGetObjects({
+  const { objects, loading, error, index } = useAlgoliaGetObjects({
     indexName: 'index-name',
     objectIds: ['algolia-object-ids'],
     fields: ['objectID', 'name']
@@ -106,7 +106,7 @@ const GetObjectsExample = () => {
 import { useAlgoliaLazyGetObjects } from 'react-algolia';
 
 const LazyGetObjectsExample = () => {
-  const [execute, { objects, loading, error }] = useAlgoliaLazyGetObjects({
+  const [execute, { objects, loading, error, index }] = useAlgoliaLazyGetObjects({
     indexName: 'index-name',
     objectIds: ['algolia-object-ids'],
     fields: ['objectID', 'name']
@@ -129,7 +129,8 @@ const SearchExample = () => {
   const {
     searchResults,
     loading,
-    error
+    error,
+    index
   } = useAlgoliaGetObjects({
     indexName: 'index-name',
     query: 'keyword', // query string to search
@@ -151,7 +152,10 @@ const SearchExample = () => {
 import { useAlgoliaLazySearch } from 'react-algolia';
 
 const LazySearchExample = () => {
-  const [execute, { searchResults, loading, error }] = useAlgoliaLazySearch({
+  const [
+    execute,
+    { searchResults, loading, error, index }
+  ] = useAlgoliaLazySearch({
     indexName: 'index-name',
     query: 'keyword', // query string to search
     page: 0, // page number starts from  0
