@@ -87,7 +87,7 @@ const useAlgoliaGetObject = ({ indexName, objectId, fields = ['*'] }) => {
     return () => (cancelled = true);
   }, [index, objectId, stringifiedFields]);
 
-  return { loading, error, object };
+  return { loading, error, object, index };
 };
 
 export { useAlgoliaGetObject };

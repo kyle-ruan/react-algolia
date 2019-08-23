@@ -88,7 +88,10 @@ const useAlgoliaLazyGetObjects = ({ indexName, objectIds, fields = ['*'] }) => {
     return () => (cancelled = true);
   }, [index, stringifiedFields, stringifiedObjectIds, waiting]);
 
-  return [() => setWaiting(false), { loading, error, objects }];
+  return [
+    () => setWaiting(false),
+    { loading, error, objects, index }
+  ];
 };
 
 export { useAlgoliaLazyGetObjects };

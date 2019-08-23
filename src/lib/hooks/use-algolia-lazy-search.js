@@ -125,11 +125,7 @@ const useAlgoliaLazySearch = ({
       loading,
       error,
       searchResults,
-      clearCache: () => {
-        if (index) {
-          index.clearCache();
-        }
-      }
+      index
     }
   ];
 };

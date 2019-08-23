@@ -46,7 +46,7 @@ const useAlgoliaGetObjects = ({
   fields = ['*']
 }) => {
   const [{ objects, loading, error }, dispatch] = useReducer(reducer, INITIAL_STATE);
-  const algoliaIndex = useAlgoliaIndex({ indexName });
+  const index = useAlgoliaIndex({ indexName });
 
   const stringifiedFields = JSON.stringify(fields);
   const stringifiedObjectIds = JSON.stringify(objectIds);
@@ -56,7 +56,7 @@ const useAlgoliaGetObjects = ({
     const getObjects = async ({ objectIds, fields }) => {
       dispatch({ type: 'fetching' });
       try {
-        const { results } = await algoliaIndex.getObjects(objectIds, fields);
+        const { results } = await index.getObjects(objectIds, fields);
 
         if (cancelled) {
           return;
@@ -78,16 +78,16 @@ const useAlgoliaGetObjects = ({
       cancelled = false;
     };
 
-    if (!algoliaIndex) {
+    if (!index) {
       return;
     }
 
     getObjects({ objectIds, fields });
 
     return () => cancelled = true;
-  }, [algoliaIndex, stringifiedFields, stringifiedObjectIds]);
+  }, [index, stringifiedFields, stringifiedObjectIds]);
 
-  return { loading, error, objects };
+  return { loading, error, objects, index };
 };
 
 export { useAlgoliaGetObjects };
