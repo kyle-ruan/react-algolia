@@ -131,7 +131,7 @@ const SearchExample = () => {
     loading,
     error,
     index
-  } = useAlgoliaGetObjects({
+  } = useAlgoliaSearch({
     indexName: 'index-name',
     query: 'keyword', // query string to search
     page: 0, // page number starts from  0
