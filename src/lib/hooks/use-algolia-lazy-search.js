@@ -43,7 +43,8 @@ const useAlgoliaLazySearch = ({
   page = 0,
   hitsPerPage = 10,
   delay = 800,
-  key = 0
+  key = 0,
+  ...props
 }) => {
   const handlerRef = useRef();
   const [{ loading, searchResults, error }, dispatch] = useReducer(
@@ -70,7 +71,8 @@ const useAlgoliaLazySearch = ({
           query,
           filters,
           page: page < 0 ? 0 : page,
-          hitsPerPage
+          hitsPerPage,
+          ...props
         });
 
         if (cancelled) {

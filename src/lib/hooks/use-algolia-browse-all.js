@@ -4,13 +4,19 @@ const useAlgoliaBrowseAll = ({
   indexName,
   query = '',
   hitsPerPage = 1000,
-  filters
+  filters,
+  ...props
 }) => {
   const index = useAlgoliaIndex({ indexName });
 
   return {
     browse: index
-      ? () => index.browseAll(query, { hitsPerPage, facetFilters: filters })
+      ? () =>
+          index.browseAll(query, {
+            hitsPerPage,
+            facetFilters: filters,
+            ...props
+          })
       : () => Promise.resolve([])
   };
 };
