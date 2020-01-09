@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import useEffect from 'use-deep-compare-effect'
 import { makeAlgoliaClient } from '../utils/make-algolia-client';
 
 const useInitAlgoliaIndex = applications => {
